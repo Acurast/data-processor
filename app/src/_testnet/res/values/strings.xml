@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Acurast Processor (TESTNET)</string>
+    <string name="channel_name">Acurast Processor</string>
+    <string name="channel_description">Acurast Processor</string>
+</resources>

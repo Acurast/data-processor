@@ -1,0 +1,165 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'jacoco'
+}
+
+android {
+    compileSdkVersion 33
+    buildToolsVersion rootProject.build_tools_version
+
+    defaultConfig {
+        applicationId "com.acurast.attested.executor"
+        minSdkVersion 30
+        targetSdkVersion 33
+        versionCode 15
+        versionName "1.3.5"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11"
+            }
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    packagingOptions {
+        resources {
+            excludes += [
+                    'META-INF/DEPENDENCIES',
+                    'META-INF/LICENSE',
+                    'META-INF/LICENSE.md',
+                    'META-INF/LICENSE-notice.md',
+                    'META-INF/LICENSE.txt',
+                    'META-INF/license.txt',
+                    'META-INF/NOTICE',
+                    'META-INF/NOTICE.txt',
+                    'META-INF/notice.txt',
+                    'META-INF/ASL2.0',
+                    'META-INF/*.kotlin_module'
+            ]
+        }
+    }
+
+    flavorDimensions "network"
+    productFlavors {
+        mainnet {
+            dimension "network"
+
+            applicationIdSuffix ".mainnet"
+            versionNameSuffix "-mainnet"
+            buildConfigField "String", "NETWORK", '"MAINNET"'
+        }
+
+        _testnet {
+            dimension "network"
+
+            applicationIdSuffix ".testnet"
+            versionNameSuffix "-testnet"
+            buildConfigField "String", "NETWORK", '"TESTNET"'
+        }
+    }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+                excludes = ['jdk.internal.*']
+            }
+        }
+        unitTests.returnDefaultValues = true
+    }
+
+    configurations {
+        all*.exclude module: "bcprov-jdk15on"
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerVersion kotlin_version
+    }
+
+    signingConfigs {
+        debug  {
+            v1SigningEnabled true
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation platform("androidx.compose:compose-bom:$compose_bom_version")
+    implementation "androidx.compose.material:material:$compose_material_version"
+    implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
+
+    implementation "com.google.crypto.tink:tink-android:$tink_android_version"
+
+    // Acurast
+    implementation "com.github.acurast.acurast-kotlin-sdk:codec:$acurast_sdk_version"
+    implementation "com.github.acurast.acurast-kotlin-sdk:rpc:$acurast_sdk_version"
+
+    implementation "com.github.airgap-it.tezos-kotlin-sdk:tezos-core:$tezos_kotlin_version"
+    implementation "com.github.airgap-it.tezos-kotlin-sdk:tezos-michelson:$tezos_kotlin_version"
+    implementation "com.github.airgap-it.tezos-kotlin-sdk:tezos-operation:$tezos_kotlin_version"
+    implementation "com.github.airgap-it.tezos-kotlin-sdk:tezos-rpc:$tezos_kotlin_version"
+
+    def coroutines_version = "1.6.4"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+
+    implementation "com.google.http-client:google-http-client-jackson2:1.34.1"
+    implementation "com.google.zxing:core:3.4.1"
+    implementation "com.google.android.play:integrity:1.1.0"
+    implementation "com.rfksystems:blake2b:1.0.0"
+    implementation "org.bouncycastle:bcprov-jdk15to18:1.70"
+    implementation "org.bitcoinj:bitcoinj-core:0.16.1"
+    implementation "com.eclipsesource.j2v8:j2v8:6.2.1@aar"
+    implementation "org.web3j:rlp:4.8.7-android"
+    implementation "org.web3j:core:4.8.7-android"
+
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "io.mockk:mockk:1.12.7"
+    testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+
+    androidTestImplementation "androidx.test:runner:1.5.2"
+    androidTestImplementation "androidx.test:rules:1.5.0"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+}

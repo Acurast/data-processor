@@ -1,0 +1,41 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext.kotlin_version = "1.8.10"
+    ext.jacocoVersion = '0.8.4'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jacoco:org.jacoco.core:$jacocoVersion"
+    }
+}
+
+plugins {
+    id 'jacoco'
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    tink_android_version = "1.7.0"
+    acurast_sdk_version = "0.0.11"
+    tezos_kotlin_version= "0.0.5"
+    build_tools_version = "30.0.3"
+    compose_version = "1.4.2"
+    compose_material_version = "1.3.1"
+    navigation_compose_version = "2.5.3"
+    compose_bom_version = "2023.01.00"
+}

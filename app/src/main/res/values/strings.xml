@@ -1,0 +1,11 @@
+<resources>
+    <string name="select_apk_update">Select update APK</string>
+
+    <string name="app_title">Acurast</string>
+    <string name="settings">Settings</string>
+    <string name="qr_code">QR Code</string>
+
+    <string name="connection_error_title">Connection error</string>
+    <string name="connection_error_message">Unable to fetch jobs.\nCheck your internet connection and try again.</string>
+    <string name="retry_label">Retry</string>
+</resources>
