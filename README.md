@@ -13,10 +13,10 @@
 2. Clone repository
 
     ```sh
-    git clone https://github.com/Acurast/acurast-processor.git
+    git clone https://github.com/Acurast/data-processor.git
     ```
 
-3. Open `acurast-processor` with Android Studio.
+3. Open `data-processor` with Android Studio.
 
 <hr/>
 
