@@ -8,12 +8,12 @@ class Constants {
     companion object {
 
         // Acurast
-        val USING_ACURAST = false
+        val USING_ACURAST = true
         val PROCESSOR_VERSION = "0.0.1"
         val ACURAST_RPC = "https://rpc.collator-1.acurast.papers.tech"
         val HEARTBEAT_INTERVAL = 15 * 60 * 1000L // 15 minutes
         val HEARTBEAT_REQUEST_CODE = 19875542
-        val SHOW_ADVERTISEMENT_BUTTON = false
+        val SHOW_ADVERTISEMENT_BUTTON = true
 
         // Crypto
         val ENCRYPTION_ALGORITHM = "AES/GCM/NoPadding"
