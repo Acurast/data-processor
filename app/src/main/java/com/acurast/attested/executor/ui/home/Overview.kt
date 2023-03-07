@@ -1,18 +1,11 @@
 package com.acurast.attested.executor.ui.home
 
 import acurast.codec.extensions.blake2b
-import acurast.codec.extensions.fromSS58
-import acurast.codec.extensions.hexToBa
-import acurast.codec.type.AccountId32
-import acurast.codec.type.CurveKind
-import acurast.codec.type.MultiSignature
 import acurast.rpc.RPC
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -33,15 +26,14 @@ import com.acurast.attested.executor.App
 import com.acurast.attested.executor.BuildConfig
 import com.acurast.attested.executor.Constants
 import com.acurast.attested.executor.R
-import com.acurast.attested.executor.crypto.Attestation
 import com.acurast.attested.executor.protocol.acurast.AcurastRPC
 import com.acurast.attested.executor.ui.theme.AcurastTheme
+import com.acurast.attested.executor.ui.common.Button
 import com.acurast.attested.executor.utils.Notification
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.math.BigInteger
 
 @Composable
 fun Overview(navigateToSettings: () -> Unit, navigateToAddresses: () -> Unit) {
@@ -248,24 +240,11 @@ fun ConnectionStatusCard() {
                     )
                 }
                 Divider(thickness = 10.dp)
+
                 Button(
                     onClick = { viewModel.attestDevice() },
-                    border = BorderStroke(1.dp, Color.Blue),
-                    elevation = ButtonDefaults.elevation(
-                        defaultElevation = 10.dp,
-                        pressedElevation = 15.dp,
-                        disabledElevation = 0.dp
-                    ),
-                    shape = RoundedCornerShape(5.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Submit Attestation",
-                        style = MaterialTheme.typography.caption,
-                        fontWeight = FontWeight.Bold,
-                    )
-                }
+                    text = "Submit Attestation",
+                )
             }
         }
     }
@@ -305,22 +284,8 @@ fun MarketplaceCard() {
                         onClick = {
                             AcurastRPC.extrinsic.advertise(22) {}
                         },
-                        border = BorderStroke(1.dp, Color.Blue),
-                        elevation = ButtonDefaults.elevation(
-                            defaultElevation = 10.dp,
-                            pressedElevation = 15.dp,
-                            disabledElevation = 0.dp
-                        ),
-                        shape = RoundedCornerShape(5.dp),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            text = "Advertise resources",
-                            style = MaterialTheme.typography.caption,
-                            fontWeight = FontWeight.Bold,
-                        )
-                    }
+                        text = "Advertise resources"
+                    )
                 }
             }
         }
